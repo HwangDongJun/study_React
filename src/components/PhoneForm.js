@@ -14,16 +14,26 @@ class PhoneForm extends Component {
         });
     }
 
+    handleSubmit = (e) => { //등록버튼을 클릭을 하게되면 자동 새로고침을 하는데, 우리는 필요가 없기 때문에
+        e.preventDefault(); //원래의 기능을 하지 못하게 방지한다.
+        this.props.onCreate({ //자식인 PhoneForm이 App인 부모에게 변수를 전달한다.
+            name: this.state.name,
+            phone: this.state.phone
+        });
+        this.setState({
+            name: '',
+            phone: '',
+        })
+    }
+
     render() {
         return (
             //여러개의 input을 관리하기 위해서는 name으로 구분을 해줄 필요가 있다.
-            <form>
+            //onSubmit={this.handleSubmit} 제출할때 이와 같이 실행을 한다.
+            <form onSubmit={this.handleSubmit}>
                 <input name="name" placeholder='이름' onChange={this.handleChange} value={this.state.name} />
                 <input name="phone" placeholder='전화번호' onChange={this.handleChange} value={this.state.phone} />
-                <div>
-                    {this.state.name}
-                    {this.state.phone}
-                </div>
+                <button type="submit">등록</button>
             </form>
             //우리가 입력하는 값이 곧바로 나타나게 된다.
         );
