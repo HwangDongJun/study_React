@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PhoneForm from './components/PhoneForm';
+import PhoneInfoList from './components/PhoneInfoList';
 
 class App extends Component {
   id = 0; //state에 들어가지 않는 이유: id값은 독립적으로 증가하기 때문에 수정이 되지 않는다.(렌더링되지 않는다.)
@@ -23,9 +24,10 @@ class App extends Component {
     return ( //onCreate={this.handleCreate}까지 설정을 한다.(부->자)
       <div>
         <PhoneForm onCreate={this.handleCreate} />
-        {JSON.stringify(this.state.info)}
+        <PhoneInfoList data={this.state.info} />
       </div>
-    ); //{JSON.stringify(this.state.info)}으로 출력한다.
+    ); //div사이에 {JSON.stringify(this.state.info)}으로는 info에 대한 data를 그냥 그대로 보여주는 것이다.
+    //<PhoneInfoList data={this.state.info} />로 인해 JSON으로 바로 보여주는 것이 아닌 PhoneInfoList에서 div사이에 list로 들어가게 된다.
   }
 }
 
